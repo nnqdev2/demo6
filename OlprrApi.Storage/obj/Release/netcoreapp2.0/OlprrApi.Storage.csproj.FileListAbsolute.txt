@@ -1,0 +1,14 @@
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Storage\bin\Release\netcoreapp2.0\OlprrApi.Storage.deps.json
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Storage\bin\Release\netcoreapp2.0\OlprrApi.Storage.dll
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Storage\bin\Release\netcoreapp2.0\OlprrApi.Storage.pdb
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Storage\bin\Release\netcoreapp2.0\OlprrApi.Common.dll
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Storage\bin\Release\netcoreapp2.0\OlprrApi.Models.dll
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Storage\bin\Release\netcoreapp2.0\OlprrApi.Common.pdb
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Storage\bin\Release\netcoreapp2.0\OlprrApi.Models.pdb
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Storage\obj\Release\netcoreapp2.0\OlprrApi.Storage.csprojResolveAssemblyReference.cache
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Storage\obj\Release\netcoreapp2.0\OlprrApi.Storage.csproj.CoreCompileInputs.cache
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Storage\obj\Release\netcoreapp2.0\OlprrApi.Storage.AssemblyInfoInputs.cache
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Storage\obj\Release\netcoreapp2.0\OlprrApi.Storage.AssemblyInfo.cs
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Storage\obj\Release\netcoreapp2.0\OlprrApi.Storage.csproj.CopyComplete
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Storage\obj\Release\netcoreapp2.0\OlprrApi.Storage.dll
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Storage\obj\Release\netcoreapp2.0\OlprrApi.Storage.pdb

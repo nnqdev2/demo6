@@ -1,0 +1,9 @@
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Models\bin\Release\netcoreapp2.0\OlprrApi.Models.deps.json
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Models\bin\Release\netcoreapp2.0\OlprrApi.Models.dll
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Models\bin\Release\netcoreapp2.0\OlprrApi.Models.pdb
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Models\obj\Release\netcoreapp2.0\OlprrApi.Models.csprojResolveAssemblyReference.cache
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Models\obj\Release\netcoreapp2.0\OlprrApi.Models.csproj.CoreCompileInputs.cache
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Models\obj\Release\netcoreapp2.0\OlprrApi.Models.AssemblyInfoInputs.cache
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Models\obj\Release\netcoreapp2.0\OlprrApi.Models.AssemblyInfo.cs
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Models\obj\Release\netcoreapp2.0\OlprrApi.Models.dll
+E:\Visual Studio 2017\HOL\OlprrApi\OlprrApi.Models\obj\Release\netcoreapp2.0\OlprrApi.Models.pdb
