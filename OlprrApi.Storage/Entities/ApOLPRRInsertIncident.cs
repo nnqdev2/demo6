@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OlprrApi.Storage.Entities
 {
-    public class ApOLPRRInsertIncident
+    public class ApOlprrInsertIncident
     {
         [Column("ERR_NUM")]
         public int ErrNum { get; set; }

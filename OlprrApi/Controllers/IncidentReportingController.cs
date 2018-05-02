@@ -192,7 +192,7 @@ namespace OlprrApi.Controllers
 
 //        [Route("incident")]
 //        [HttpPost]
-//        public async Task<IActionResult> PostIncident([FromBody] Models.Request.ApOLPRRInsertIncident apOLPRRInsertIncident)
+//        public async Task<IActionResult> PostIncident([FromBody] Models.Request.ApOlprrInsertIncident apOLPRRInsertIncident)
 //        {
 //            var x = await _olprrService.InsertOLPRRIncidentRecord(apOLPRRInsertIncident);
 //            return Created("olprr/incident", apOLPRRInsertIncident);

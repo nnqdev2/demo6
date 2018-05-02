@@ -14,10 +14,10 @@ namespace OlprrApi.Storage
         public DbSet<SourceType> SourceType { get; set; }
         public DbSet<State> State { get; set; }
         public DbSet<StreetTypeT> StreetTypeT { get; set; }
-        public DbSet<ApOLPRRGetLustLookup> ApOLPRRGetLustLookup { get; set; }
+        public DbSet<ApOlprrGetLustLookup> ApOLPRRGetLustLookup { get; set; }
 
 
-        public DbSet<ApOLPRRInsertIncident> ApOLPRRInsertIncident { get; set; }
+        public DbSet<ApOlprrInsertIncident> ApOLPRRInsertIncident { get; set; }
         public LustDbContext(DbContextOptions<LustDbContext> options) : base(options)
         {
         }

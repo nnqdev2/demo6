@@ -56,7 +56,7 @@ namespace OlprrApi
                 options => options.UseSqlServer(
                      Configuration.GetConnectionString("LustDbConnection")));
 
-            services.AddScoped<IOlprrRpository, OlprrRepository>();
+            services.AddScoped<IOlprrRepository, OlprrRepository>();
             services.AddScoped<IIncidentReportingService, IncidentReportingService>();
             services.AddScoped<IOlprrReviewService, OlprrReviewService>();
         }

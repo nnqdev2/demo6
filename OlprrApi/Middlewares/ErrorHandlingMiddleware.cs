@@ -31,22 +31,14 @@ namespace OlprrApi.Middlewares
 
         private static Task HandleExceptionAsync(HttpContext context, Exception exception, ILogger logger)
         {
-
             logger.LogError(exception.Message);
             logger.LogError(exception.StackTrace);
-
-
-
             var code = HttpStatusCode.InternalServerError;
-
             if (exception is ResourceNotFoundException) code = HttpStatusCode.NotFound;
-            //else if (exception is StoreProcedureNonZeroOutputParamException) code = HttpStatusCode.InternalServerError;
             //else if (exception is MyException) code = HttpStatusCode.BadRequest;
-
             var result = JsonConvert.SerializeObject(new { error = exception.Message });
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
-
             return context.Response.WriteAsync(result);
         }
     }

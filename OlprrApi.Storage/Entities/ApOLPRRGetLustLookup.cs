@@ -2,7 +2,7 @@
 
 namespace OlprrApi.Storage.Entities
 {
-    public class ApOLPRRGetLustLookup
+    public class ApOlprrGetLustLookup
     {
         [Key]
         public int LustId { get; set; }

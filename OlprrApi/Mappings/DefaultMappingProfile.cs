@@ -16,9 +16,10 @@ namespace OlprrApi.Mappings
             CreateMap<Storage.Entities.State, Models.Response.State>();
             CreateMap<Storage.Entities.SiteTypeT, Models.Response.SiteTypeT>();
             CreateMap<Storage.Entities.StreetTypeT, Models.Response.StreetTypeT>();
-            CreateMap<Models.Request.ApOLPRRInsertIncident, Storage.Entities.ApOLPRRInsertIncident>();
+            CreateMap<Models.Request.ApOLPRRInsertIncident, Storage.Entities.ApOlprrInsertIncident>();
             CreateMap<Models.Request.LustSiteAddressSearch, Storage.Entities.LustSiteAddressSearch>();
-            CreateMap<Storage.Entities.ApOLPRRGetLustLookup, Models.Response.LustSiteAddressSearch>();
+            CreateMap<Storage.Entities.ApOlprrGetLustLookup, Models.Response.LustSiteAddressSearch>();
+            CreateMap<Storage.Entities.ApOlprrGetIncidentById, Models.Response.IncidentById>();
         }
     }
 }

@@ -7,6 +7,7 @@ namespace OlprrApi.Services
 {
     public interface IOlprrReviewService
     {
-        Task<IEnumerable<ResponseDto.LustSiteAddressSearch>> GetLustSearch(RequestDto.LustSiteAddressSearch lustSiteAddressSearch);
+        Task<IEnumerable<ResponseDto.LustSiteAddressSearch>> SearchLust(RequestDto.LustSiteAddressSearch lustSiteAddressSearch);
+        Task<ResponseDto.IncidentById> GetIncidentById(int olprrId);
     }
 }

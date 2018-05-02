@@ -13,23 +13,29 @@ namespace OlprrApi.Services
     {
 
         private ILogger<OlprrReviewService> _logger;
-        private IOlprrRpository _lustRepository;
+        private IOlprrRepository _lustRepository;
         private readonly IMapper _mapper;
-        public OlprrReviewService(ILogger<OlprrReviewService> logger, IOlprrRpository lustRepository, IMapper mapper)
+        public OlprrReviewService(ILogger<OlprrReviewService> logger, IOlprrRepository lustRepository, IMapper mapper)
         {
             _logger = logger;
             _lustRepository = lustRepository;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<ResponseDto.LustSiteAddressSearch>> GetLustSearch(RequestDto.LustSiteAddressSearch lustSiteAddressSearch)
+        public async Task<IEnumerable<ResponseDto.LustSiteAddressSearch>> SearchLust(RequestDto.LustSiteAddressSearch lustSiteAddressSearch)
         {
             var searchFilters = _mapper.Map<RequestDto.LustSiteAddressSearch, EntityDto.LustSiteAddressSearch>(lustSiteAddressSearch);
             var resultList = new List<ResponseDto.LustSiteAddressSearch>();
-            foreach (var result in await _lustRepository.GetLustSearch(searchFilters))
+            foreach (var result in await _lustRepository.GetApOLPRRGetLustLookup(searchFilters))
             {
-                resultList.Add(_mapper.Map<EntityDto.ApOLPRRGetLustLookup, ResponseDto.LustSiteAddressSearch>(result));
+                resultList.Add(_mapper.Map<EntityDto.ApOlprrGetLustLookup, ResponseDto.LustSiteAddressSearch>(result));
             }
             return resultList;
+        }
+
+        public async Task<ResponseDto.IncidentById> GetIncidentById(int olprrId)
+        {
+            var result =  await _lustRepository.ApOlprrGetIncidentById(olprrId);
+            return (_mapper.Map<EntityDto.ApOlprrGetIncidentById, ResponseDto.IncidentById>(result));
         }
     }
 }

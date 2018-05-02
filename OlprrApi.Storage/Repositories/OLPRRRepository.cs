@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace OlprrApi.Storage.Repositories
 {
-    public class OlprrRepository : IOlprrRpository
+    public class OlprrRepository : IOlprrRepository
     {
         public const string ExecuteApGetOLPRRLookupTables = "execute dbo.apGetOLPRRLookupTables {0}";
         public const string ConfirmationTypeTable = "ConfirmationType";
@@ -70,7 +70,7 @@ namespace OlprrApi.Storage.Repositories
         {
             return await _dbContext.Set<StreetTypeT>().AsNoTracking().FromSql(ExecuteApGetOLPRRLookupTables, StreetTypeTable).ToListAsync();
         }
-        public async Task<int> InsertOLPRRIncidentRecord(ApOLPRRInsertIncident apOLPRRInsertIncident)
+        public async Task<int> InsertOLPRRIncidentRecord(ApOlprrInsertIncident apOLPRRInsertIncident)
         {
             var result = await _dbContext.Database.ExecuteSqlCommandAsync("execute dbo.apOLPRRInsertIncident " +
             "  @ErrNum ,@CONTRACTOR_UID, @CONTRACTOR_PWD, @REPORTED_BY, @REPORTED_BY_PHONE,  @REPORTED_BY_EMAIL, @RELEASE_TYPE, @DATE_RECEIVED,@FACILITY_ID, @SITE_NAME,@SITE_COUNTY" +
@@ -82,7 +82,7 @@ namespace OlprrApi.Storage.Repositories
             return result;
         }
 
-        private IEnumerable<SqlParameter> BuildSqlParams(ApOLPRRInsertIncident apOLPRRInsertIncident)
+        private IEnumerable<SqlParameter> BuildSqlParams(ApOlprrInsertIncident apOLPRRInsertIncident)
         {
             IList<SqlParameter> list = new List<SqlParameter>();
             list.Add(new SqlParameter { ParameterName = "@ErrNum", SqlDbType = SqlDbType.SmallInt, Direction = ParameterDirection.Output });
@@ -154,40 +154,7 @@ namespace OlprrApi.Storage.Repositories
             return myParams;
         }
 
-        //public async Task<IEnumerable<ApOLPRRGetLustLookup>> GetApOLPRRGetLustLookups(Dto.LustSiteAddressSearch lustSiteAddressSearch)
-        public async Task GetApOLPRRGetLustLookups(LustSiteAddressSearch lustSiteAddressSearch)
-        {
-
-            lustSiteAddressSearch.SiteAddress = "";
-            lustSiteAddressSearch.SiteName = "";
-            lustSiteAddressSearch.SiteZip = "97229";
-            int spResult = 9999;
-            IList<SqlParameter> list = new List<SqlParameter>();
-            list.Add(new SqlParameter("@SiteName", lustSiteAddressSearch.SiteName));
-            list.Add(new SqlParameter("@SiteAddress", lustSiteAddressSearch.SiteAddress));
-            list.Add(new SqlParameter("@SiteCity", lustSiteAddressSearch.SiteCity));
-            list.Add(new SqlParameter("@SiteZip", lustSiteAddressSearch.SiteZip));
-            list.Add(new SqlParameter("@OrderBy", lustSiteAddressSearch.OrderBy));
-            list.Add(new SqlParameter { ParameterName = "@Result", SqlDbType = SqlDbType.SmallInt, Direction = ParameterDirection.Output, Value = spResult });
-
-            IEnumerable<SqlParameter> myParams = list;
-
-
-            
-            var result = await _dbContext.Database.ExecuteSqlCommandAsync("execute dbo.apOLPRRGetLustLookup " +
-                "  @SiteName, @SiteAddress, @SiteCity, @SiteZip,  @OrderBy, @Result OUTPUT", myParams);
-
-            var test = spResult;
-
-
-            //var sql = "exec spTestSp @ParamIn1, @ParamIn2, @ParamOut1 OUT, @ParamOut2 OUT";
-            //var result = db.Database.ExecuteSqlCommand(sql, in1, in2, out1, out2);
-
-            //var out1Value = (long)out1.Value;
-            //var out2Value = (string)out2.Value;
-        }
-
-        public async Task<IEnumerable<ApOLPRRGetLustLookup>> GetLustSearch(LustSiteAddressSearch lustSiteAddressSearch)
+        public async Task<IEnumerable<ApOlprrGetLustLookup>> GetApOLPRRGetLustLookup(LustSiteAddressSearch lustSiteAddressSearch)
         {
 
             var siteNameParam = new SqlParameter("@SiteName", lustSiteAddressSearch.SiteName);
@@ -209,7 +176,7 @@ namespace OlprrApi.Storage.Repositories
             const string ExecuteApOLPRRGetLustLookup = "execute dbo.apOLPRRGetLustLookup @SiteName, @SiteAddress, @SiteCity" +
                 ", @SiteZip, @OrderBy, @Result OUTPUT";
 
-            var result = await _dbContext.Set<ApOLPRRGetLustLookup>().AsNoTracking().FromSql(ExecuteApOLPRRGetLustLookup
+            var result = await _dbContext.Set<ApOlprrGetLustLookup>().AsNoTracking().FromSql(ExecuteApOLPRRGetLustLookup
                 , siteNameParam, siteAddressParam, siteCityParam, siteZipParam, orderByParam, resultOutParam).ToListAsync();
 
             var resultCode = (Int16)(resultOutParam.Value);
@@ -229,5 +196,114 @@ namespace OlprrApi.Storage.Repositories
             //https://stackoverflow.com/questions/45252959/entity-framework-core-using-stored-procedure-with-output-parameters
         }
 
+        //private IEnumerable<SqlParameter> BuildSqlParams(int olprrId)
+        //{
+        //    IList<SqlParameter> list = new List<SqlParameter>();
+        //    list.Add(new SqlParameter("@OlprrId", olprrId));
+        //    list.Add(new SqlParameter { ParameterName = "@ReleaseType", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output});
+        //    list.Add(new SqlParameter { ParameterName = "@ReceiveDate", SqlDbType = SqlDbType.DateTime, Direction = ParameterDirection.Output});
+        //    list.Add(new SqlParameter { ParameterName = "@FacilityId", SqlDbType = SqlDbType.Int, Direction = ParameterDirection.Output});
+        //    list.Add(new SqlParameter { ParameterName = "@SiteName", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output});
+        //    list.Add(new SqlParameter { ParameterName = "@SiteCounty", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output});
+        //    list.Add(new SqlParameter { ParameterName = "@SiteAddress", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output});
+        //    list.Add(new SqlParameter { ParameterName = "@OtherAddress", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output});
+        //    list.Add(new SqlParameter { ParameterName = "@SiteCity", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output});
+        //    list.Add(new SqlParameter { ParameterName = "@SiteZipCode", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output});
+        //    list.Add(new SqlParameter { ParameterName = "@SitePhone", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output });
+        //    list.Add(new SqlParameter { ParameterName = "@SiteComment", SqlDbType = SqlDbType.DateTime, Direction = ParameterDirection.Output });
+        //    list.Add(new SqlParameter { ParameterName = "@ContractorId", SqlDbType = SqlDbType.Int, Direction = ParameterDirection.Output });
+        //    list.Add(new SqlParameter { ParameterName = "@SiteStatus", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output });
+        //    list.Add(new SqlParameter { ParameterName = "@ReportedBy", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output });
+        //    list.Add(new SqlParameter { ParameterName = "@ReportedByPhone", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output });
+        //    list.Add(new SqlParameter { ParameterName = "@ContractorName", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output });
+        //    list.Add(new SqlParameter { ParameterName = "@ContractorEmail", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output });
+        //    list.Add(new SqlParameter { ParameterName = "@Result", SqlDbType = SqlDbType.Int, Direction = ParameterDirection.Output });
+        //    IEnumerable<SqlParameter> myParams = list;
+        //    return myParams;
+        //}
+
+        public async Task<ApOlprrGetIncidentById> ApOlprrGetIncidentById(int olprrId)
+        {
+            var olprrIdParam = (new SqlParameter("@OlprrId", olprrId));
+            var releaseTypeParam = (new SqlParameter { ParameterName = "@ReleaseType", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output, Size = 1});
+            var receiveDateParam = (new SqlParameter { ParameterName = "@ReceiveDate", SqlDbType = SqlDbType.DateTime, Direction = ParameterDirection.Output });
+            var facilityIdParam = (new SqlParameter { ParameterName = "@FacilityId", SqlDbType = SqlDbType.Int, Direction = ParameterDirection.Output });
+            var siteNameParam = (new SqlParameter { ParameterName = "@SiteName", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output, Size = 40 });
+            var siteCountyParam = (new SqlParameter { ParameterName = "@SiteCounty", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output, Size = 2 });
+            var siteAddressParam = (new SqlParameter { ParameterName = "@SiteAddress", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output, Size = 40});
+            var otherAddressParam = (new SqlParameter { ParameterName = "@OtherAddress", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output, Size = 40 });
+            var siteCityParam = (new SqlParameter { ParameterName = "@SiteCity", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output, Size = 10 });
+            var siteZipCodeParam = (new SqlParameter { ParameterName = "@SiteZipCode", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output, Size = 10 });
+            var sitePhoneParam = (new SqlParameter { ParameterName = "@SitePhone", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output, Size = 25 });
+            var siteCommentParam = (new SqlParameter { ParameterName = "@SiteComment", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output, Size = 720 });
+            var contractorIdParam = (new SqlParameter { ParameterName = "@ContractorId", SqlDbType = SqlDbType.Int, Direction = ParameterDirection.Output });
+            var siteStatusParam = (new SqlParameter { ParameterName = "@SiteStatus", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output, Size = 8 });
+            var reportedByParam = (new SqlParameter { ParameterName = "@ReportedBy", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output, Size = 50 });
+            var reportedByPhoneParam = (new SqlParameter { ParameterName = "@ReportedByPhone", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output, Size = 25 });
+            var contractorNameParam = (new SqlParameter { ParameterName = "@ContractorName", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output, Size = 50 });
+            var contractorEmailParam = (new SqlParameter { ParameterName = "@ContractorEmail", SqlDbType = SqlDbType.VarChar, Direction = ParameterDirection.Output, Size = 50 });
+            var resultParam = (new SqlParameter { ParameterName = "@Result", SqlDbType = SqlDbType.Int, Direction = ParameterDirection.Output });
+
+            await _dbContext.Database.ExecuteSqlCommandAsync("execute dbo.apOlprrGetIncidentById " +
+                " @OlprrId, @ReleaseType OUTPUT, @ReceiveDate OUTPUT, @FacilityId OUTPUT, @SiteName OUTPUT,  @SiteCounty OUTPUT, @SiteAddress OUTPUT, @OtherAddress OUTPUT" +
+                ", @SiteCity OUTPUT, @SiteZipCode OUTPUT, @SitePhone OUTPUT, @SiteComment OUTPUT,  @ContractorId OUTPUT" +
+                ", @SiteStatus OUTPUT, @ReportedBy OUTPUT, @ReportedByPhone OUTPUT, @ContractorName OUTPUT, @ContractorEmail OUTPUT, @Result OUTPUT"
+                , olprrIdParam, releaseTypeParam, receiveDateParam, facilityIdParam, siteNameParam, siteCountyParam, siteAddressParam, otherAddressParam
+                , siteCityParam, siteZipCodeParam, sitePhoneParam, siteCommentParam, contractorIdParam
+                , siteStatusParam, reportedByParam, reportedByPhoneParam, contractorNameParam, contractorEmailParam, resultParam);
+
+            var resultCode = (Int32)(resultParam.Value);
+            if (resultCode != 0)
+            {
+                var errorMsg = $"execute dbo.apOlprrGetIncidentById for olprrId {olprrId} returned status code = {resultCode}";
+                _logger.LogError(errorMsg);
+                throw new StoreProcedureNonZeroOutputParamException(errorMsg);
+            }
+
+            //var apOlprrGetIncidentById = new ApOlprrGetIncidentById();
+            //apOlprrGetIncidentById.OlprrId = olprrId;
+            //apOlprrGetIncidentById.ReleaseType = (releaseTypeParam.Value == DBNull.Value) ? null : (string)releaseTypeParam.Value;
+            //apOlprrGetIncidentById.DateReceived = (DateTime)receiveDateParam.Value;
+            //apOlprrGetIncidentById.FacilityId = String.IsNullOrEmpty(facilityIdParam.Value.ToString())? 0: (int)facilityIdParam.Value;
+            //apOlprrGetIncidentById.SiteName = (siteNameParam.Value == DBNull.Value) ? null : (string)siteNameParam.Value;
+            //apOlprrGetIncidentById.SiteCounty = (siteCountyParam.Value == DBNull.Value) ? null : (string)siteCountyParam.Value;
+            //apOlprrGetIncidentById.SiteAddress = (siteAddressParam.Value == DBNull.Value) ? null : (string)siteAddressParam.Value;
+            //apOlprrGetIncidentById.OtherAddress = (otherAddressParam.Value == DBNull.Value) ? null : (string)otherAddressParam.Value;
+            //apOlprrGetIncidentById.SiteCity = (siteCityParam.Value == DBNull.Value) ? null : (string)siteCityParam.Value;
+            //apOlprrGetIncidentById.SiteZipcode = (siteZipCodeParam.Value == DBNull.Value) ? null : (string)siteZipCodeParam.Value;
+            //apOlprrGetIncidentById.SitePhone = (sitePhoneParam.Value == DBNull.Value) ? null : (string)sitePhoneParam.Value;
+            //apOlprrGetIncidentById.SiteComment = (siteCommentParam.Value == DBNull.Value) ? null : (string)siteCommentParam.Value;
+            //apOlprrGetIncidentById.ContractorId = (int)contractorIdParam.Value;
+            //apOlprrGetIncidentById.SiteStatus = (siteStatusParam.Value == DBNull.Value) ? null : (string)siteStatusParam.Value;
+            //apOlprrGetIncidentById.ReportedBy = (reportedByParam.Value == DBNull.Value) ? null : (string)reportedByParam.Value;
+            //apOlprrGetIncidentById.ReportedByPhone = (reportedByPhoneParam.Value == DBNull.Value) ? null : (string)reportedByPhoneParam.Value;
+            //apOlprrGetIncidentById.ContractorName = (contractorNameParam.Value == DBNull.Value) ? null : (string)contractorNameParam.Value;
+            //apOlprrGetIncidentById.ContractorEmail = (contractorEmailParam.Value == DBNull.Value) ? null : (string)contractorEmailParam.Value;
+            //apOlprrGetIncidentById.Result = resultCode;
+            //return apOlprrGetIncidentById;
+
+            return new ApOlprrGetIncidentById
+            {
+                OlprrId = olprrId,
+                ReleaseType = (releaseTypeParam.Value == DBNull.Value) ? null : (string)releaseTypeParam.Value,
+                DateReceived = (DateTime)receiveDateParam.Value,
+                FacilityId = String.IsNullOrEmpty(facilityIdParam.Value.ToString()) ? 0 : (int)facilityIdParam.Value,
+                SiteName = (siteNameParam.Value == DBNull.Value) ? null : (string)siteNameParam.Value,
+                SiteCounty = (siteCountyParam.Value == DBNull.Value) ? null : (string)siteCountyParam.Value,
+                SiteAddress = (siteAddressParam.Value == DBNull.Value) ? null : (string)siteAddressParam.Value,
+                OtherAddress = (otherAddressParam.Value == DBNull.Value) ? null : (string)otherAddressParam.Value,
+                SiteCity = (siteCityParam.Value == DBNull.Value) ? null : (string)siteCityParam.Value,
+                SiteZipcode = (siteZipCodeParam.Value == DBNull.Value) ? null : (string)siteZipCodeParam.Value,
+                SitePhone = (sitePhoneParam.Value == DBNull.Value) ? null : (string)sitePhoneParam.Value,
+                SiteComment = (siteCommentParam.Value == DBNull.Value) ? null : (string)siteCommentParam.Value,
+                ContractorId = (int)contractorIdParam.Value,
+                SiteStatus = (siteStatusParam.Value == DBNull.Value) ? null : (string)siteStatusParam.Value,
+                ReportedBy = (reportedByParam.Value == DBNull.Value) ? null : (string)reportedByParam.Value,
+                ReportedByPhone = (reportedByPhoneParam.Value == DBNull.Value) ? null : (string)reportedByPhoneParam.Value,
+                ContractorName = (contractorNameParam.Value == DBNull.Value) ? null : (string)contractorNameParam.Value,
+                ContractorEmail = (contractorEmailParam.Value == DBNull.Value) ? null : (string)contractorEmailParam.Value,
+                Result = resultCode
+            };
+        }
     }
 }

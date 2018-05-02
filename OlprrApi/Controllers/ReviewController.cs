@@ -15,7 +15,6 @@ namespace OlprrApi.Controllers
     {
         private readonly ILogger<ReviewController> _logger;
         private readonly IOlprrReviewService _olprrReviewService;
-
         public ReviewController(ILogger<ReviewController> logger, IOlprrReviewService olprrReviewService)
         {
             _logger = logger;
@@ -27,8 +26,13 @@ namespace OlprrApi.Controllers
         public async Task<IActionResult> LustSearch([FromBody] Models.Request.LustSiteAddressSearch lustSiteAddressSearch)
         {
             //https://stackoverflow.com/questions/14202257/design-restful-query-api-with-a-long-list-of-query-parameters
-            var x =  await _olprrReviewService.GetLustSearch(lustSiteAddressSearch);
-            return Ok( x);
+            return Ok(await _olprrReviewService.SearchLust(lustSiteAddressSearch));
+        }
+        [Route("incident/{olprrId}")]
+        [HttpGet]
+        public async Task<IActionResult> GetIncidentById(int olprrId)
+        {
+            return Ok(await _olprrReviewService.GetIncidentById(olprrId));
         }
 
     }

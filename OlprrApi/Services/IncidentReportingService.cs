@@ -13,9 +13,9 @@ namespace OlprrApi.Services
     public class IncidentReportingService : IIncidentReportingService
     {
         private ILogger<IncidentReportingService> _logger;
-        private IOlprrRpository _lustRepository;
+        private IOlprrRepository _lustRepository;
         private readonly IMapper _mapper;
-        public IncidentReportingService(ILogger<IncidentReportingService> logger, IOlprrRpository lustRepository, IMapper mapper)
+        public IncidentReportingService(ILogger<IncidentReportingService> logger, IOlprrRepository lustRepository, IMapper mapper)
         {
             _logger = logger;
             _lustRepository = lustRepository;
@@ -24,17 +24,17 @@ namespace OlprrApi.Services
 
 
 
-        //public async Task<int> InsertOLPRRIncidentRecord(ApOLPRRInsertIncident apOLPRRInsertIncident)
+        //public async Task<int> InsertOLPRRIncidentRecord(ApOlprrInsertIncident apOLPRRInsertIncident)
         public async Task<int> InsertOLPRRIncidentRecord(ApOLPRRInsertIncident apOLPRRInsertIncident)
         {
-            var incident = _mapper.Map<ApOLPRRInsertIncident, EntityDto.ApOLPRRInsertIncident>(apOLPRRInsertIncident);
+            var incident = _mapper.Map<ApOLPRRInsertIncident, EntityDto.ApOlprrInsertIncident>(apOLPRRInsertIncident);
             var result = await _lustRepository.InsertOLPRRIncidentRecord(incident);
             return result;
         }
 
-        private EntityDto.ApOLPRRInsertIncident BuildApOLPRRInsertIncident()
+        private EntityDto.ApOlprrInsertIncident BuildApOLPRRInsertIncident()
         {
-            return new EntityDto.ApOLPRRInsertIncident
+            return new EntityDto.ApOlprrInsertIncident
             {
                 ErrNum = 99,
                 ContractorUid = "DENNIS",
